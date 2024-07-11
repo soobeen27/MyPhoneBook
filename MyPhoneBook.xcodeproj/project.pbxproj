@@ -9,23 +9,40 @@
 /* Begin PBXBuildFile section */
 		F468EB572C3F782C00BC9766 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EB562C3F782C00BC9766 /* AppDelegate.swift */; };
 		F468EB592C3F782C00BC9766 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EB582C3F782C00BC9766 /* SceneDelegate.swift */; };
-		F468EB5B2C3F782C00BC9766 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EB5A2C3F782C00BC9766 /* ViewController.swift */; };
-		F468EB5E2C3F782C00BC9766 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = F468EB5D2C3F782C00BC9766 /* Base */; };
+		F468EB5B2C3F782C00BC9766 /* PhoneBookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EB5A2C3F782C00BC9766 /* PhoneBookController.swift */; };
 		F468EB612C3F782C00BC9766 /* MyPhoneBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F468EB5F2C3F782C00BC9766 /* MyPhoneBook.xcdatamodeld */; };
 		F468EB632C3F782F00BC9766 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F468EB622C3F782F00BC9766 /* Assets.xcassets */; };
 		F468EB662C3F782F00BC9766 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = F468EB652C3F782F00BC9766 /* Base */; };
+		F468EB712C3F7C1200BC9766 /* PhoneBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EB702C3F7C1200BC9766 /* PhoneBookView.swift */; };
+		F468EB732C3F7CB000BC9766 /* PhoneBookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EB722C3F7CB000BC9766 /* PhoneBookTableViewCell.swift */; };
+		F468EB752C3F7CC800BC9766 /* NameSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EB742C3F7CC800BC9766 /* NameSpace.swift */; };
+		F468EB782C3F7D8800BC9766 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F468EB772C3F7D8800BC9766 /* SnapKit */; };
+		F468EB7C2C3F99B300BC9766 /* AddNewNumController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EB7B2C3F99B300BC9766 /* AddNewNumController.swift */; };
+		F468EB7E2C3F99CB00BC9766 /* AddNewNumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EB7D2C3F99CB00BC9766 /* AddNewNumView.swift */; };
+		F468EB802C3FA66900BC9766 /* PokemonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EB7F2C3FA66900BC9766 /* PokemonData.swift */; };
+		F468EB832C3FB80A00BC9766 /* PhoneBook+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EB812C3FB80A00BC9766 /* PhoneBook+CoreDataClass.swift */; };
+		F468EB842C3FB80A00BC9766 /* PhoneBook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EB822C3FB80A00BC9766 /* PhoneBook+CoreDataProperties.swift */; };
+		F468EB862C3FB86700BC9766 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EB852C3FB86700BC9766 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F468EB532C3F782C00BC9766 /* MyPhoneBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPhoneBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F468EB562C3F782C00BC9766 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F468EB582C3F782C00BC9766 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F468EB5A2C3F782C00BC9766 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F468EB5D2C3F782C00BC9766 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F468EB5A2C3F782C00BC9766 /* PhoneBookController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneBookController.swift; sourceTree = "<group>"; };
 		F468EB602C3F782C00BC9766 /* MyPhoneBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyPhoneBook.xcdatamodel; sourceTree = "<group>"; };
 		F468EB622C3F782F00BC9766 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F468EB652C3F782F00BC9766 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F468EB672C3F782F00BC9766 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F468EB702C3F7C1200BC9766 /* PhoneBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneBookView.swift; sourceTree = "<group>"; };
+		F468EB722C3F7CB000BC9766 /* PhoneBookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneBookTableViewCell.swift; sourceTree = "<group>"; };
+		F468EB742C3F7CC800BC9766 /* NameSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSpace.swift; sourceTree = "<group>"; };
+		F468EB7B2C3F99B300BC9766 /* AddNewNumController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewNumController.swift; sourceTree = "<group>"; };
+		F468EB7D2C3F99CB00BC9766 /* AddNewNumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewNumView.swift; sourceTree = "<group>"; };
+		F468EB7F2C3FA66900BC9766 /* PokemonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonData.swift; sourceTree = "<group>"; };
+		F468EB812C3FB80A00BC9766 /* PhoneBook+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhoneBook+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F468EB822C3FB80A00BC9766 /* PhoneBook+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhoneBook+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F468EB852C3FB86700BC9766 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F468EB782C3F7D8800BC9766 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,14 +78,46 @@
 			children = (
 				F468EB562C3F782C00BC9766 /* AppDelegate.swift */,
 				F468EB582C3F782C00BC9766 /* SceneDelegate.swift */,
-				F468EB5A2C3F782C00BC9766 /* ViewController.swift */,
-				F468EB5C2C3F782C00BC9766 /* Main.storyboard */,
+				F468EB742C3F7CC800BC9766 /* NameSpace.swift */,
+				F468EB6F2C3F7BF500BC9766 /* View */,
+				F468EB6E2C3F7BE900BC9766 /* Controller */,
+				F468EB6D2C3F7BE000BC9766 /* Model */,
 				F468EB622C3F782F00BC9766 /* Assets.xcassets */,
 				F468EB642C3F782F00BC9766 /* LaunchScreen.storyboard */,
 				F468EB672C3F782F00BC9766 /* Info.plist */,
 				F468EB5F2C3F782C00BC9766 /* MyPhoneBook.xcdatamodeld */,
 			);
 			path = MyPhoneBook;
+			sourceTree = "<group>";
+		};
+		F468EB6D2C3F7BE000BC9766 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F468EB812C3FB80A00BC9766 /* PhoneBook+CoreDataClass.swift */,
+				F468EB822C3FB80A00BC9766 /* PhoneBook+CoreDataProperties.swift */,
+				F468EB7F2C3FA66900BC9766 /* PokemonData.swift */,
+				F468EB852C3FB86700BC9766 /* CoreDataManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F468EB6E2C3F7BE900BC9766 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F468EB5A2C3F782C00BC9766 /* PhoneBookController.swift */,
+				F468EB7B2C3F99B300BC9766 /* AddNewNumController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F468EB6F2C3F7BF500BC9766 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F468EB702C3F7C1200BC9766 /* PhoneBookView.swift */,
+				F468EB722C3F7CB000BC9766 /* PhoneBookTableViewCell.swift */,
+				F468EB7D2C3F99CB00BC9766 /* AddNewNumView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,6 +136,9 @@
 			dependencies = (
 			);
 			name = MyPhoneBook;
+			packageProductDependencies = (
+				F468EB772C3F7D8800BC9766 /* SnapKit */,
+			);
 			productName = MyPhoneBook;
 			productReference = F468EB532C3F782C00BC9766 /* MyPhoneBook.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +167,9 @@
 				Base,
 			);
 			mainGroup = F468EB4A2C3F782C00BC9766;
+			packageReferences = (
+				F468EB762C3F7D8800BC9766 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = F468EB542C3F782C00BC9766 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -130,7 +186,6 @@
 			files = (
 				F468EB632C3F782F00BC9766 /* Assets.xcassets in Resources */,
 				F468EB662C3F782F00BC9766 /* Base in Resources */,
-				F468EB5E2C3F782C00BC9766 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,24 +196,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F468EB5B2C3F782C00BC9766 /* ViewController.swift in Sources */,
+				F468EB712C3F7C1200BC9766 /* PhoneBookView.swift in Sources */,
+				F468EB5B2C3F782C00BC9766 /* PhoneBookController.swift in Sources */,
 				F468EB572C3F782C00BC9766 /* AppDelegate.swift in Sources */,
+				F468EB7C2C3F99B300BC9766 /* AddNewNumController.swift in Sources */,
+				F468EB832C3FB80A00BC9766 /* PhoneBook+CoreDataClass.swift in Sources */,
+				F468EB842C3FB80A00BC9766 /* PhoneBook+CoreDataProperties.swift in Sources */,
+				F468EB732C3F7CB000BC9766 /* PhoneBookTableViewCell.swift in Sources */,
+				F468EB862C3FB86700BC9766 /* CoreDataManager.swift in Sources */,
+				F468EB752C3F7CC800BC9766 /* NameSpace.swift in Sources */,
+				F468EB7E2C3F99CB00BC9766 /* AddNewNumView.swift in Sources */,
 				F468EB592C3F782C00BC9766 /* SceneDelegate.swift in Sources */,
 				F468EB612C3F782C00BC9766 /* MyPhoneBook.xcdatamodeld in Sources */,
+				F468EB802C3FA66900BC9766 /* PokemonData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		F468EB5C2C3F782C00BC9766 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F468EB5D2C3F782C00BC9766 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		F468EB642C3F782F00BC9766 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -301,7 +357,6 @@
 				INFOPLIST_FILE = MyPhoneBook/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -329,7 +384,6 @@
 				INFOPLIST_FILE = MyPhoneBook/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -367,6 +421,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F468EB762C3F7D8800BC9766 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F468EB772C3F7D8800BC9766 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F468EB762C3F7D8800BC9766 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		F468EB5F2C3F782C00BC9766 /* MyPhoneBook.xcdatamodeld */ = {
