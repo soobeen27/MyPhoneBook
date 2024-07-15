@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import Alamofire
+import RxSwift
 
 class AddNewNumController: UIViewController {
     
@@ -23,11 +24,15 @@ class AddNewNumController: UIViewController {
     var nameForUpdate: String?
     var callBack: (() -> PhoneBook)?
     
+    
+    let networkManager = NetworkManager()
+    private let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNav()
         setValues()
-//        let vc = PhoneBookController()
+        //        let vc = PhoneBookController()
         
         addNewNumView.randImgBtn.addAction( UIAction {_ in
             self.fetchPokemon()
@@ -109,7 +114,6 @@ class AddNewNumController: UIViewController {
     
     private func fetchPokemon() {
         let urlComponents = URLComponents(string: "https://pokeapi.co/api/v2/pokemon/\(Int.random(in: 1...10))/")
-        print("https://pokeapi.co/api/v2/pokemon/\(Int.random(in: 1...10))/")
         
         guard let url = urlComponents?.url else {
             print("잘못된 URL")
@@ -131,8 +135,26 @@ class AddNewNumController: UIViewController {
             case .failure(let error):
                 print("데이터 로드 실패: \(error)")
             }
-
         }
+    }
+    
+    func fetchData() {
+        let urlComponents = URLComponents(string: "https://pokeapi.co/api/v2/pokemon/\(Int.random(in: 1...10))/")
+        
+        guard let url = urlComponents?.url else {
+            print("잘못된 URL")
+            return
+        }
+        networkManager.fetchData(url)
+            .subscribe(onNext: { [weak addNewNumView] (result: Pokemon) in
+                guard let addNewNumView else { return }
+                guard let imageUrl = URL(string:result.sprites.imgUrlString) else { return }
+                self.networkManager.fetchImage(imageUrl)
+            }
+                       ,onError: { error in
+                print(error)
+            }
+            ).disposed(by: disposeBag)
     }
 }
 

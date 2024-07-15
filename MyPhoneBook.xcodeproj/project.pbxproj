@@ -24,6 +24,8 @@
 		F468EB842C3FB80A00BC9766 /* PhoneBook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EB822C3FB80A00BC9766 /* PhoneBook+CoreDataProperties.swift */; };
 		F468EB862C3FB86700BC9766 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468EB852C3FB86700BC9766 /* CoreDataManager.swift */; };
 		F468EB892C44BCAF00BC9766 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F468EB882C44BCAF00BC9766 /* Alamofire */; };
+		F468EB8F2C450F4900BC9766 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F468EB8E2C450F4900BC9766 /* RxSwift */; };
+		F468EB912C450F4D00BC9766 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F468EB902C450F4D00BC9766 /* RxCocoa */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,7 +53,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F468EB8F2C450F4900BC9766 /* RxSwift in Frameworks */,
 				F468EB782C3F7D8800BC9766 /* SnapKit in Frameworks */,
+				F468EB912C450F4D00BC9766 /* RxCocoa in Frameworks */,
 				F468EB892C44BCAF00BC9766 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,6 +68,7 @@
 			children = (
 				F468EB552C3F782C00BC9766 /* MyPhoneBook */,
 				F468EB542C3F782C00BC9766 /* Products */,
+				F468EB8D2C450F4900BC9766 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,6 +127,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		F468EB8D2C450F4900BC9766 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -141,6 +153,8 @@
 			packageProductDependencies = (
 				F468EB772C3F7D8800BC9766 /* SnapKit */,
 				F468EB882C44BCAF00BC9766 /* Alamofire */,
+				F468EB8E2C450F4900BC9766 /* RxSwift */,
+				F468EB902C450F4D00BC9766 /* RxCocoa */,
 			);
 			productName = MyPhoneBook;
 			productReference = F468EB532C3F782C00BC9766 /* MyPhoneBook.app */;
@@ -173,6 +187,7 @@
 			packageReferences = (
 				F468EB762C3F7D8800BC9766 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				F468EB872C44BCAE00BC9766 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				F468EB8C2C450EAF00BC9766 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = F468EB542C3F782C00BC9766 /* Products */;
 			projectDirPath = "";
@@ -443,6 +458,14 @@
 				minimumVersion = 5.9.1;
 			};
 		};
+		F468EB8C2C450EAF00BC9766 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -455,6 +478,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F468EB872C44BCAE00BC9766 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		F468EB8E2C450F4900BC9766 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F468EB8C2C450EAF00BC9766 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		F468EB902C450F4D00BC9766 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F468EB8C2C450EAF00BC9766 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
 		};
 /* End XCSwiftPackageProductDependency section */
 
