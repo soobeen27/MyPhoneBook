@@ -49,4 +49,17 @@ class CoreDataManager {
         }
     }
     
+    func updateData(currentName: String, completionHandler: (([PhoneBook]) -> Void)) {
+        let fetchRequest = PhoneBook.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "name == %@", currentName) // 예시: 이름이 "Adam"인 데이터 수정
+        
+        do {
+            let result = try container.viewContext.fetch(fetchRequest)
+            completionHandler(result)
+            try container.viewContext.save()
+        } catch {
+            print("데이터 수정 실패")
+        }
+    }
+    
 }

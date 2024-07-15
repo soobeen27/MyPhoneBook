@@ -21,22 +21,6 @@ struct Sprites: Codable {
     }
 }
 
-class DataManager {
-    func fetchData<T: Decodable>(url: URL, completion: @escaping (Result<T, AFError>) -> Void) {
-        AF.request(url).responseDecodable(of: T.self) { response in
-            completion(response.result)
-        }
-    }
-    func getImg(urlString: String, completionHandler: @escaping (_: UIImage) -> Void) {
-        guard let imageUrl = URL(string: urlString) else { return }
-        AF.request(imageUrl).responseData { response in
-            if let data = response.data, let image = UIImage(data: data) {
-                completionHandler(image)
-            }
-        }
-    }
-}
-
 class NetworkManager {
     func fetchData<T: Decodable>(_ url: URL) -> Observable<T> {
         return Observable.create() { observable in

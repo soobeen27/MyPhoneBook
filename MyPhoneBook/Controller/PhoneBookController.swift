@@ -7,22 +7,19 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class PhoneBookController: UIViewController {
-
+    
     var phoneBookView: PhoneBookView!
     let coreDataManager = CoreDataManager()
-    let dataManager = DataManager()
-    var phoneBooks: [PhoneBook] = [] {
-        didSet {
-            phoneBookView.tableView.reloadData()
-        }
-    }
-//    var profileImgs: [UIImage]?
+    var phoneBooks = BehaviorRelay<[PhoneBook]>(value: [])
+    let networkManager = NetworkManager()
+    private let disposeBag = DisposeBag()
     
     lazy var addBtn: UIBarButtonItem = {
         let btn = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(addBtnPressed))
-        //        btn.setTitleTextAttributes([ NSAttributedString.Key.foregroundColor : UIColor.lightGray ], for: .normal)
         btn.tintColor = .lightGray
         return btn
     }()
@@ -33,17 +30,13 @@ class PhoneBookController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
-        loadData()
+        fetchCoreData()
         setNav()
+        setTableView()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadData()
-    }
-    func configureTableView() {
-        phoneBookView.tableView.dataSource = self
-        phoneBookView.tableView.delegate = self
+        fetchCoreData()
     }
     func setNav() {
         title = "친구목록"
@@ -52,6 +45,33 @@ class PhoneBookController: UIViewController {
         ]
         navigationItem.rightBarButtonItem = self.addBtn
     }
+    func setTableView() {
+        phoneBooks.bind(to: phoneBookView.tableView.rx.items(cellIdentifier: TableView.cellIdent, cellType: PhoneBookTableViewCell.self)) { [weak self] (row, item, cell) in
+            guard let self else { return }
+            cell.nameLabel.text = item.name
+            cell.phoneNumLabel.text = item.number
+            guard let imageUrl = URL(string: item.profileImg!) else { return }
+            self.networkManager.fetchImage(imageUrl)
+                .subscribe(onNext: { image in
+                    cell.profileImgView.image = image
+                }
+                           ,onError: { error in
+                    print("이미지 로드 에러: \(error)")
+                }
+                ).disposed(by: disposeBag)
+            cell.selectionStyle = .none
+        }.disposed(by: disposeBag)
+        
+        phoneBookView.tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let self = self else { return }
+                let addNewVC = AddNewNumController()
+                addNewVC.callBack = {
+                    self.phoneBooks.value[indexPath.row]
+                }
+                self.navigationController?.pushViewController(addNewVC, animated: true)
+            }).disposed(by: disposeBag)
+    }
     
     @objc
     func addBtnPressed() {
@@ -59,37 +79,9 @@ class PhoneBookController: UIViewController {
         navigationController?.pushViewController(addNewVC, animated: true)
     }
     
-    func loadData() {
+    func fetchCoreData() {
         coreDataManager.readAllData { phoneBooks in
-            self.phoneBooks = phoneBooks
+            self.phoneBooks.accept(phoneBooks)
         }
-    }
-}
-
-extension PhoneBookController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return phoneBooks.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableView.cellIdent, for: indexPath) as? PhoneBookTableViewCell else { return UITableViewCell() }
-        cell.nameLabel.text = phoneBooks[indexPath.row].name
-        cell.phoneNumLabel.text = phoneBooks[indexPath.row].number
-        dataManager.getImg(urlString: phoneBooks[indexPath.row].profileImg!) { img in
-            img.prepareForDisplay { decodedImage in
-                DispatchQueue.main.async {
-                    cell.profileImgView.image = decodedImage
-                }
-            }
-        }
-        cell.selectionStyle = .none
-        return cell
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let addNewVC = AddNewNumController()
-        addNewVC.callBack = {
-            self.phoneBooks[indexPath.row]
-        }
-        navigationController?.pushViewController(addNewVC, animated: true)
     }
 }

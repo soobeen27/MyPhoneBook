@@ -19,7 +19,6 @@ class AddNewNumController: UIViewController {
     
     var imageUrl: String?
     var addNewNumView: AddNewNumView!
-    let dataManager = DataManager()
     let coreDataManager = CoreDataManager()
     var nameForUpdate: String?
     var callBack: (() -> PhoneBook)?
@@ -32,10 +31,9 @@ class AddNewNumController: UIViewController {
         super.viewDidLoad()
         setNav()
         setValues()
-        //        let vc = PhoneBookController()
         
         addNewNumView.randImgBtn.addAction( UIAction {_ in
-            self.fetchPokemon()
+            self.fetchData()
         }, for: .touchDown)
     }
     
@@ -60,49 +58,34 @@ class AddNewNumController: UIViewController {
         self.addNewNumView.nameTextView.text = phoneBook.name
         self.addNewNumView.numTextView.text = phoneBook.number
         self.imageUrl = phoneBook.profileImg
-        dataManager.getImg(urlString: phoneBook.profileImg!) { img in
-            img.prepareForDisplay { decodedImage in
-                DispatchQueue.main.async {
-                    self.addNewNumView.profileImgView.image = decodedImage
-                }
-            }
-        }
+        guard let url = URL(string: self.imageUrl!) else { return }
+        networkManager.fetchImage(url).subscribe(onNext: { [weak self] image in
+            guard let self = self else { return }
+            self.addNewNumView.profileImgView.image = image
+        }).disposed(by: disposeBag)
     }
     
     func updateData(currentName: String) {
-        var container: NSPersistentContainer!
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        container = appDelegate.persistentContainer
-        // 수정할 데이터를 찾기 위한 fetch request 생성
-        let fetchRequest = PhoneBook.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "name == %@", currentName) // 예시: 이름이 "Adam"인 데이터 수정
-        
-        do {
-            // fetch request 실행
-            let result = try container.viewContext.fetch(fetchRequest)
-            
-            // 결과 처리
+        coreDataManager.updateData(currentName: currentName) { result in
             for data in result as [NSManagedObject] {
-                // 데이터 수정
                 data.setValue(self.addNewNumView.nameTextView.text, forKey: PhoneBook.Key.name)
                 data.setValue(self.addNewNumView.numTextView.text, forKey: PhoneBook.Key.number)
                 data.setValue(self.imageUrl, forKey: PhoneBook.Key.profileImg)
-                
-                // 변경 사항 저장
-                try container.viewContext.save()
+
                 print("데이터 수정 완료")
             }
-            
-        } catch {
-            print("데이터 수정 실패")
         }
     }
     
     @objc
     func addBtnPressed() {
-        guard let name = addNewNumView.nameTextView.text else { return }
-        guard let number = addNewNumView.numTextView.text else { return }
-        guard let profileImg = imageUrl else { return }
+        print("add btn pressed")
+        guard let name = addNewNumView.nameTextView.text else { print("name error") 
+            return }
+        guard let number = addNewNumView.numTextView.text else {print("num error") 
+            return }
+        guard let profileImg = imageUrl else { print("img error") 
+            return }
         guard let nameForUpdate else {
             coreDataManager.createData(name: name, number: number, profileImg: profileImg)
             navigationController?.popViewController(animated: true)
@@ -110,32 +93,6 @@ class AddNewNumController: UIViewController {
         }
         updateData(currentName: nameForUpdate)
         navigationController?.popViewController(animated: true)
-    }
-    
-    private func fetchPokemon() {
-        let urlComponents = URLComponents(string: "https://pokeapi.co/api/v2/pokemon/\(Int.random(in: 1...10))/")
-        
-        guard let url = urlComponents?.url else {
-            print("잘못된 URL")
-            return
-        }
-        
-        dataManager.fetchData(url: url) { [self, weak addNewNumView] (result: Result<Pokemon, AFError>) in
-            switch result {
-            case .success(let result):
-                guard let addNewNumView else { return }
-                self.imageUrl = result.sprites.imgUrlString
-                dataManager.getImg(urlString: self.imageUrl!) { image in
-                    image.prepareForDisplay { decodedImg in
-                        DispatchQueue.main.async {
-                            addNewNumView.profileImgView.image = decodedImg
-                        }
-                    }
-                }
-            case .failure(let error):
-                print("데이터 로드 실패: \(error)")
-            }
-        }
     }
     
     func fetchData() {
@@ -148,8 +105,12 @@ class AddNewNumController: UIViewController {
         networkManager.fetchData(url)
             .subscribe(onNext: { [weak addNewNumView] (result: Pokemon) in
                 guard let addNewNumView else { return }
+                self.imageUrl = result.sprites.imgUrlString
                 guard let imageUrl = URL(string:result.sprites.imgUrlString) else { return }
                 self.networkManager.fetchImage(imageUrl)
+                    .subscribe(onNext: { image in
+                        addNewNumView.profileImgView.image = image
+                    }).disposed(by: self.disposeBag)
             }
                        ,onError: { error in
                 print(error)
