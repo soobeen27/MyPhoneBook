@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import Alamofire
 
 class AddNewNumController: UIViewController {
     
@@ -26,7 +27,7 @@ class AddNewNumController: UIViewController {
         super.viewDidLoad()
         setNav()
         setValues()
-        let vc = PhoneBookController()
+//        let vc = PhoneBookController()
         
         addNewNumView.randImgBtn.addAction( UIAction {_ in
             self.fetchPokemon()
@@ -115,18 +116,22 @@ class AddNewNumController: UIViewController {
             return
         }
         
-        dataManager.fetchData(url: url) { [weak addNewNumView] (result: Pokemon?) in
-            guard let addNewNumView, let result else { return }
-            self.imageUrl = result.sprites.imgUrlString
-            guard let imageUrl = URL(string: self.imageUrl!) else { return }
-            
-            if let data = try? Data(contentsOf: imageUrl) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        addNewNumView.profileImgView.image = image
+        dataManager.fetchData(url: url) { [self, weak addNewNumView] (result: Result<Pokemon, AFError>) in
+            switch result {
+            case .success(let result):
+                guard let addNewNumView else { return }
+                self.imageUrl = result.sprites.imgUrlString
+                dataManager.getImg(urlString: self.imageUrl!) { image in
+                    image.prepareForDisplay { decodedImg in
+                        DispatchQueue.main.async {
+                            addNewNumView.profileImgView.image = decodedImg
+                        }
                     }
                 }
+            case .failure(let error):
+                print("데이터 로드 실패: \(error)")
             }
+
         }
     }
 }
