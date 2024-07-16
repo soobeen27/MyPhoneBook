@@ -14,7 +14,6 @@ class PhoneBookController: UIViewController {
     
     var phoneBookView: PhoneBookView!
     let coreDataManager = CoreDataManager()
-    var phoneBooks = BehaviorRelay<[PhoneBook]>(value: [])
     let networkManager = NetworkManager()
     private let disposeBag = DisposeBag()
     
@@ -30,13 +29,13 @@ class PhoneBookController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchCoreData()
         setNav()
         setTableView()
+        tableViewCellSelected()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchCoreData()
+        phoneBookView.tableView.reloadData()
     }
     func setNav() {
         title = "친구목록"
@@ -44,9 +43,13 @@ class PhoneBookController: UIViewController {
             NSAttributedString.Key.font : UIFont.systemFont(ofSize: 20, weight: .bold)
         ]
         navigationItem.rightBarButtonItem = self.addBtn
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.barTintColor = .systemBackground
+        navigationController?.navigationBar.shadowImage = UIImage()
+
     }
     func setTableView() {
-        phoneBooks.bind(to: phoneBookView.tableView.rx.items(cellIdentifier: TableView.cellIdent, cellType: PhoneBookTableViewCell.self)) { [weak self] (row, item, cell) in
+        coreDataManager.readAllData().bind(to: phoneBookView.tableView.rx.items(cellIdentifier: TableView.cellIdent, cellType: PhoneBookTableViewCell.self)) { [weak self] (row, item, cell) in
             guard let self else { return }
             cell.nameLabel.text = item.name
             cell.phoneNumLabel.text = item.number
@@ -61,14 +64,20 @@ class PhoneBookController: UIViewController {
                 ).disposed(by: disposeBag)
             cell.selectionStyle = .none
         }.disposed(by: disposeBag)
-        
+    }
+    
+    func tableViewCellSelected() {
         phoneBookView.tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
                 let addNewVC = AddNewNumController()
-                addNewVC.callBack = {
-                    self.phoneBooks.value[indexPath.row]
-                }
+                coreDataManager.readAllData().compactMap { array in
+                    array.indices.contains(indexPath.row) ? array[indexPath.row] : nil
+                }.subscribe(onNext: { value in
+                    addNewVC.callBack = {
+                        return value
+                    }
+                }).disposed(by: disposeBag)
                 self.navigationController?.pushViewController(addNewVC, animated: true)
             }).disposed(by: disposeBag)
     }
@@ -77,11 +86,5 @@ class PhoneBookController: UIViewController {
     func addBtnPressed() {
         let addNewVC = AddNewNumController()
         navigationController?.pushViewController(addNewVC, animated: true)
-    }
-    
-    func fetchCoreData() {
-        coreDataManager.readAllData { phoneBooks in
-            self.phoneBooks.accept(phoneBooks)
-        }
     }
 }

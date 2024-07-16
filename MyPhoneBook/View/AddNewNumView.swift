@@ -63,10 +63,6 @@ class AddNewNumView: UIView {
     
     func configureUI() {
         self.backgroundColor = .systemBackground
-        
-//        [profileImgView, randImgBtn, textViewStackView].forEach{
-//            self.addSubview($0)
-//        }
         [profileImgView, randImgBtn, nameTextView, numTextView].forEach{
             self.addSubview($0)
         }

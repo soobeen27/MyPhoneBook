@@ -6,6 +6,7 @@
 //
 import CoreData
 import UIKit
+import RxSwift
 
 class CoreDataManager {
     var container: NSPersistentContainer!
@@ -29,24 +30,19 @@ class CoreDataManager {
         }
     }
     
-    // AdamCoreData 에서 데이터 Read.
-    func readAllData(complitionHandler: ([PhoneBook]) -> Void) {
-        do {
-            let request = PhoneBook.fetchRequest()
-            request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-            let phoneBooks = try self.container.viewContext.fetch(request)
-            
-            for phoneBook in phoneBooks as [NSManagedObject] {
-                if let _ = phoneBook.value(forKey: CoreDataInfo.name) as? String,
-                   let _ = phoneBook.value(forKey: CoreDataInfo.number) as? String,
-                   let _ = phoneBook.value(forKey: CoreDataInfo.profileImg) as? String
-                {
-                    complitionHandler(phoneBooks)
-                }
+    func readAllData() -> Observable<[PhoneBook]> {
+        return Observable.create() { observable in
+            do {
+                let request = PhoneBook.fetchRequest()
+                request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+                let phoneBooks = try self.container.viewContext.fetch(request)
+                observable.onNext(phoneBooks)
+            } catch {
+                print("데이터 읽기 실패")
             }
-        } catch {
-            print("데이터 읽기 실패")
+            return Disposables.create()
         }
+        
     }
     
     func updateData(currentName: String, completionHandler: (([PhoneBook]) -> Void)) {

@@ -28,12 +28,13 @@ class PhoneBookView: UIView {
     }
     
     func configureUI() {
+        self.backgroundColor = .systemBackground
         [ tableView ].forEach {
             self.addSubview($0)
         }
         
         tableView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
+            $0.edges.equalToSuperview().inset(UIEdgeInsets(top: 20, left: 20, bottom: 0, right: 20))
         }
     }
 
